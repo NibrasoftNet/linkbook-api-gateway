@@ -33,7 +33,8 @@ import { authContext } from './utils/context/auth.context';
           supergraphSdl: new IntrospectAndCompose({
             subgraphs: [
               { name: 'users', url: configService.getOrThrow('app.usersDomain', { infer: true }) },
-              { name: 'library', url: configService.getOrThrow('app.libraryDomain', { infer: true }) }
+              { name: 'library', url: configService.getOrThrow('app.libraryDomain', { infer: true }) },
+              { name: 'cart', url: configService.getOrThrow('app.cartDomain', { infer: true }) }
             ],
           }),
         },
