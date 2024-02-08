@@ -10,7 +10,6 @@ import { ResponseInterceptor } from './utils/interceptors/response.interceptor';
 
 const logger = new Logger('LinkBook Api Gateway');
 async function bootstrap() {
-  initializeTransactionalContext({ storageDriver: StorageDriver.AUTO });
   const app = await NestFactory.create(AppModule, { cors: true });
   useContainer(app.select(AppModule), {
     fallbackOnErrors: true,
