@@ -5,6 +5,7 @@ import {GraphQLModule} from "@nestjs/graphql";
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { authContext } from './utils/context/auth.context';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 
 @Module({
@@ -18,11 +19,13 @@ import { authContext } from './utils/context/auth.context';
       inject: [ConfigService],
       driver: ApolloGatewayDriver,
       useFactory: async (configService: ConfigService) => ({
+        playground:false,
+        plugins:[ ApolloServerPluginLandingPageLocalDefault() ],
         server: {
           context: authContext
         },
         gateway: {
-          buildService: ({ name, url }) => {
+          buildService: ({ url }) => {
             return new RemoteGraphQLDataSource({
               url,
               willSendRequest({ request, context }: any) {
